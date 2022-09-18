@@ -8,8 +8,8 @@
 #include<SoftwareSerial.h>
 
 // Update these with values suitable for your network.
-const char* ssid = "Mahanyasa";
-const char* password = "24446666678";
+const char* ssid = "Krishna";
+const char* password = "KriShna824@32";
 const char* mqtt_server = "bdcf9197b54e48c3913243ef5378abb0.s1.eu.hivemq.cloud";
 SoftwareSerial ss(3, 1);
 // A single, global CertStore which can be used by all connections.
@@ -25,6 +25,7 @@ char msg[MSG_BUFFER_SIZE];
 int value = 0;
 
 void setup_wifi() {
+  Serial.print("Wifi Connection: \n");
   delay(10);
   // We start by connecting to a WiFi network
   int n = WiFi.scanNetworks();
@@ -77,7 +78,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   char *string_to_be_sent = (char *)malloc(length*sizeof(char)+1);
   for (int i = 0; i < length; i++) {
     Serial.print((char)payload[i]);
-    string_to_be_sent
+    //string_to_be_sent
   }
   Serial.println();
   // Switch on the LED if the first character is present
@@ -120,7 +121,7 @@ void reconnect() {
 void setup() {
   delay(500);
   // When opening the Serial Monitor, select 9600 Baud
-  Serial.begin(9600);
+  Serial.begin(115200);
   ss.begin(9600);
   delay(500);
   LittleFS.begin();
