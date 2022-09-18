@@ -1,26 +1,11 @@
 #include <SoftwareSerial.h>
-#include <WiFiClient.h>
-#include <ESP8266WiFi.h>
 #include <String.h>
 
 SoftwareSerial s1(D1, D2);
 
-const char *ssid = "Krishna";
-const char *password = "KriShna824@32";
-
-WiFiClient client;
-
 void setup(){
-  delay(3000);
   Serial.begin(115200);
-  s1.begin(9600);
-  WiFi.begin(ssid, password);
-  while( WiFi.status() != WL_CONNECTED){
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("WiFi Connected");
-  delay(1000); 
+  s1.begin(9600); 
 }
 
 void loop() {
