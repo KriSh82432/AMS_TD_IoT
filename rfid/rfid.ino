@@ -1,32 +1,34 @@
 #include <SPI.h>
 #include <MFRC522.h>
+#include <SoftwareSerial.h>
  
 #define SS_PIN 10
 #define RST_PIN 9
-MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance.
+MFRC522 mfrc522(SS_PIN, RST_PIN);
+SoftwareSerial serial_1(2,3);
  
 void setup() 
 {
-  Serial.begin(9600);   // Initiate a serial communication
-  SPI.begin();      // Initiate  SPI bus
-  mfrc522.PCD_Init();   // Initiate MFRC522
+  Serial.begin(9600);
+  serial_1.begin(9600);
+  SPI.begin(); 
+  mfrc522.PCD_Init();
+  Serial.println("Welcome to TD AMS");
   Serial.println("Scan your card now...");
 }
 void loop() 
 {
-  // Look for new cards
   if ( ! mfrc522.PICC_IsNewCardPresent()) 
   {
     return;
   }
-  // Select one of the cards
   if ( ! mfrc522.PICC_ReadCardSerial()) 
   {
     return;
   }
-  //Show UID on serial monitor
-  Serial.print("UID tag :");
+  Serial.print("Your UID tag :");
   String content= "";
+  //char msg[10];
   byte letter;
   for (byte i = 0; i < mfrc522.uid.size; i++) 
   {
@@ -35,8 +37,12 @@ void loop()
      content.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
      content.concat(String(mfrc522.uid.uidByte[i], HEX));
   }
-  Serial.println();
+  Serial.println(content);
+  serial_1.println(content);
+  if(serial_1.available()){
+    Serial.println(serial_1.read());
+  }
+  //Serial.println(msg);
   Serial.println("Please Wait...");
   delay(3000);
-  Serial.println("Scan your card now!!");
 }
