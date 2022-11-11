@@ -22,7 +22,7 @@ client.on('message',async (topic,msg)=>{
         RFID:msg.toString()
     })
     if(data){
-        client.publish(topic,`Register Number: ${data.REG_NO}`);
+        client.publish(topic, `Register Number: ${data.REG_NO}`);
     }
     else{
 
