@@ -1,0 +1,4 @@
+src/GoogleSheets/vendor/credentials.json
+src/GoogleSheets/
+src/GoogleSheets/vendor/composer.json
+src/GoogleSheets/vendor/composer.lock
