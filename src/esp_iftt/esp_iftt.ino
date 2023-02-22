@@ -3,7 +3,8 @@
 const char* ssid     = "Krishna";
 const char* password = "KriShna824@32";
 
-const char* resource = "/trigger/rfid_detected/with/key/diq8ijv1g4TN63FZv0i_re";
+const char* addUser = "/trigger/rfid_detected/with/key/diq8ijv1g4TN63FZv0i_re";
+const char* entryLog = "/trigger/entry_logged/with/key/diq8ijv1g4TN63FZv0i_re";
 const char* server = "maker.ifttt.com";
 
 void initWifi() {
@@ -43,9 +44,9 @@ void makeIFTTTRequest(String data) {
   }
   
   Serial.print("Request resource: "); 
-  Serial.println(resource);
+  Serial.println(addUser);
   String jsonObject = String("{\"value1\":\"") + data + "\"}";          
-  client.println(String("POST ") + resource + " HTTP/1.1");
+  client.println(String("POST ") + addUser + " HTTP/1.1");
   client.println(String("Host: ") + server); 
   client.println("Connection: close\r\nContent-Type: application/json");
   client.print("Content-Length: ");

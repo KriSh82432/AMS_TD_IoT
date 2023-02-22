@@ -7,10 +7,10 @@ require __DIR__ . '/../Logs/Config/Domain.php';
 
 class Logs
 {
-    public static function AddUser(string $name, string $regNo, string $uid, string $domain)
+    public static function AddUser(string $name, string $regNo, string $uid, string $domain, string $creationTime)
     {
-        $Sql = 'INSERT INTO Users(`Name`, `RegisterNo`, `UID`, `Domain`) VALUES(?, ?, ?, ?)';
-        \DB\DbConn::Get()->PrepareAndExecute($Sql, [$name, $regNo, $uid, \Config\Domain::ToValue($domain)]);
+        $Sql = 'INSERT INTO Users(`Name`, `RegisterNo`, `UID`, `Domain`, `DateOfCreation`) VALUES(?, ?, ?, ?, ?)';
+        \DB\DbConn::Get()->PrepareAndExecute($Sql, [$name, $regNo, $uid, \Config\Domain::ToValue($domain), self::ToUnixTimeStamp($creationTime)]);
     }
 
     public static function AddEntryLog(string $uid, string $entryTime)

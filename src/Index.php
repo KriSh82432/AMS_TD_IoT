@@ -7,5 +7,6 @@ $Log = new \GoogleSheets\GSheetsBase\AMS(\GoogleSheets\Config\Credentials::crede
 $data = $Log->GetMultiDimArray($Log->GetAllRows('Sheet1'));
 
 foreach ($data as $val) {
-    \Logs\Logs::AddEntryLog($val['UID'], $val['Time Stamp']);
+    var_dump($val);
+    \Logs\Logs::AddUser($val['Name'], $val['RegisterNo'], $val['UID'], $val['Domain'], $val['Time Stamp']);
 }
