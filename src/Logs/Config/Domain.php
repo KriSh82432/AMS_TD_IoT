@@ -10,6 +10,7 @@ namespace Config {
         public const Event = "6";
         public const Content = "7";
         public const Graphic = "8";
+        public const Organizer = "9";
 
         public static function ToValue(string $domain)
         {
@@ -21,7 +22,8 @@ namespace Config {
                 "Event" => self::Event,
                 "Content" => self::Content,
                 "Graphic" => self::Graphic,
-                "Admin" => self::Admin
+                "Admin" => self::Admin,
+                "Organizer" => self::Organizer
             };
         }
     }

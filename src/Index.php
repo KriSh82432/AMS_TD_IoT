@@ -3,10 +3,19 @@
 require 'GoogleSheets/GSheetsBase.php';
 require 'Logs/Logs.php';
 
-$Log = new \GoogleSheets\GSheetsBase\AMS(\GoogleSheets\Config\Credentials::credentialsPath, \GoogleSheets\Config\Credentials::sheetId);
+$Log = new \GoogleSheets\GSheetsBase\AMS(\GoogleSheets\Config\Credentials::credentialsPath, \GoogleSheets\Config\Credentials::entryLogSheetId);
 $data = $Log->GetMultiDimArray($Log->GetAllRows('Sheet1'));
+$filterArray = [];
+$duplicateArray = [];
 
 foreach ($data as $val) {
-    var_dump($val);
-    \Logs\Logs::AddUser($val['Name'], $val['RegisterNo'], $val['UID'], $val['Domain'], $val['Time Stamp']);
+    if (!in_array($val, $filterArray)) {
+        $filterArray[] = $val;
+    } else {
+        $duplicateArray[] = $val;
+    }
+}
+
+foreach ($filterArray as $val) {
+    \Logs\Logs::AddEntryLog($val['UID'], $val['Time Stamp']);
 }
