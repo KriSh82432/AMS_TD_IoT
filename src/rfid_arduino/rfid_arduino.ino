@@ -43,5 +43,5 @@ void loop()
   u_uid.toUpperCase();
   Serial.println(u_uid);
   espSerial.println(u_uid);
-  delay(2000);
+  delay(1000);
 } 

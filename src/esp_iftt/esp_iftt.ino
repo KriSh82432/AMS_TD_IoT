@@ -44,9 +44,9 @@ void makeIFTTTRequest(String data) {
   }
   
   Serial.print("Request resource: "); 
-  Serial.println(addUser);
+  Serial.println(entryLog);
   String jsonObject = String("{\"value1\":\"") + data + "\"}";          
-  client.println(String("POST ") + addUser + " HTTP/1.1");
+  client.println(String("POST ") + entryLog + " HTTP/1.1");
   client.println(String("Host: ") + server); 
   client.println("Connection: close\r\nContent-Type: application/json");
   client.print("Content-Length: ");
@@ -72,8 +72,6 @@ void makeIFTTTRequest(String data) {
 
 void setup() {
   Serial.begin(115200); 
-  delay(2000);
-
   initWifi();
   
 }
@@ -88,6 +86,6 @@ void loop() {
       data.remove(8, data.length());
       makeIFTTTRequest(data);
     }
-    delay(3000); 
+    delay(2000); 
   }
 }
