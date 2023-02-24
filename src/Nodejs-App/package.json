@@ -1,0 +1,14 @@
+{
+  "name": "ams-app",
+  "version": "2.0.0",
+  "description": "AMS - Attendance Monitoring System ",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^4.3.7"
+  }
+}

@@ -1,10 +1,16 @@
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
+#include <PubSubClient.h>
 
-const char* ssid     = "Krishna";
+const char* ssid = "Krishna";
 const char* password = "KriShna824@32";
 
-const char* resource = "/trigger/rfid_detected/with/key/diq8ijv1g4TN63FZv0i_re";
-const char* server = "maker.ifttt.com";
+const char* mqtt_server = "localhost";
+const int mqtt_port = 1883;
+const char* mqtt_username = "Krishna";
+const char* mqtt_password = "KriShna824@32";
+
+WiFiClient wifiClient;
+PubSubClient mqttClient(wifiClient);
 
 void initWifi() {
   Serial.print("Connecting to: "); 
@@ -13,13 +19,13 @@ void initWifi() {
 
   int timeout = 10 * 4;
   while(WiFi.status() != WL_CONNECTED  && (timeout-- > 0)) {
-    delay(250);
-    Serial.print(".");
+  delay(250);
+  Serial.print(".");
   }
   Serial.println("");
 
   if(WiFi.status() != WL_CONNECTED) {
-     Serial.println("Failed to connect, going back to sleep");
+    Serial.println("Failed to connect, going back to sleep");
   }
 
   Serial.print("WiFi connected in: "); 
@@ -28,53 +34,27 @@ void initWifi() {
   Serial.println(WiFi.localIP());
 }
 
-void makeIFTTTRequest(String data) {
-  Serial.print("Connecting to "); 
-  Serial.print(server);
-  
-  WiFiClient client;
-  int retries = 5;
-  while(!!!client.connect(server, 80) && (retries-- > 0)) {
-    Serial.print(".");
+void setup() {
+  mqttClient.setServer(mqtt_server, mqtt_port);
+  mqttClient.setCredentials(mqtt_username, mqtt_password);
+
+  // Connect to MQTT broker
+  while (!mqttClient.connected()) {
+    if (mqttClient.connect("ESP32_client")) {
+      Serial.println("Connected to MQTT broker");
+    } else {
+      Serial.println("Failed to connect to MQTT broker");
+      delay(1000);
+    }
   }
-  Serial.println();
-  if(!!!client.connected()) {
-    Serial.println("Failed to connect...");
-  }
-  
-  Serial.print("Request resource: "); 
-  Serial.println(resource);
-  String jsonObject = String("{\"value1\":\"") + data + "\"}";          
-  client.println(String("POST ") + resource + " HTTP/1.1");
-  client.println(String("Host: ") + server); 
-  client.println("Connection: close\r\nContent-Type: application/json");
-  client.print("Content-Length: ");
-  client.println(jsonObject.length());
-  client.println();
-  client.println(jsonObject);
-  Serial.println(jsonObject);
-        
-  int timeout = 5 * 10; // 5 seconds             
-  while(!!!client.available() && (timeout-- > 0)){
-    delay(100);
-  }
-  if(!!!client.available()) {
-    Serial.println("No response...");
-  }
-  while(client.available()){
-    Serial.write(client.read());
-  }
-  
-  Serial.println("\nclosing connection");
-  client.stop(); 
 }
 
-void setup() {
-  Serial.begin(115200); 
-  delay(2000);
+void loop() {
+  // Publish a message to the topic "test"
+  mqttClient.publish("test", "Hello, world!");
 
-  initWifi();
-  
+  // Wait for 5 seconds before publishing another message
+  delay(5000);
 }
 
 void loop() {
