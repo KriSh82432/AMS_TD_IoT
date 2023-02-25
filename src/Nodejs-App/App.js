@@ -46,10 +46,11 @@ mqttClient.on("message", (topic, message) => {
   if (topic === mqttTopic) {
     if(data.length === 8) {
       mysqlConnection.query(
-        `INSERT INTO ${mysqlTable} (UID, EntryTime) VALUES (?, ?)`,
+        `INSERT IGNORE INTO ${mysqlTable} (UID, EntryTime) VALUES (?, ?)`,
         [data, timestamp],
         (err, result) => {
           if (err) {
+            console.log(data);
             console.error(`Failed to insert data into MySQL table: ${err}`);
             mqttClient.publish(mqttResultTopic, "404");
           } else {
