@@ -15,7 +15,7 @@ class Logs
 
     public static function AddEntryLog(string $uid, string $entryTime)
     {
-        $Sql = 'INSERT IGNORE INTO EntryLogs(`EntryTime`, `UID`) VALUES(?, ?)';
+        $Sql = 'INSERT IGNORE INTO EntryLogsTest(`EntryTime`, `UID`) VALUES(?, ?)';
         \DB\DbConn::Get()->PrepareAndExecute($Sql, [self::ToUnixTimeStamp($entryTime), $uid]);
     }
 

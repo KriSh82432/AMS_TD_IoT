@@ -15,7 +15,9 @@ foreach ($data as $val) {
         $duplicateArray[] = $val;
     }
 }
+var_dump($duplicateArray);
 
 foreach ($filterArray as $val) {
+    var_dump($val);
     \Logs\Logs::AddEntryLog($val['UID'], $val['Time Stamp']);
 }
