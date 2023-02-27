@@ -44,7 +44,7 @@ class Report
                 $this->AddEntry($row);
             }
         } else {
-            echo "No New Log. Bye";
+            echo "No New Log. Bye\n";
             exit;
         }
     }
@@ -54,10 +54,10 @@ class Report
         $response = $this->bot->CreateNewTab($this->tabName);
 
         if ($response->replies[0]->addSheet->properties->sheetId) {
-            echo "Tab Created Successfully";
+            echo "Tab Created Successfully\n";
             return true;
         } else {
-            echo "Couldn't create Tab";
+            echo "Couldn't create Tab\n";
             return false;
         }
     }
@@ -89,12 +89,12 @@ class Report
         if ($this->AddHeader()) {
             $response = $this->bot->AppendRow($this->tabName, $data);
             if ($response->updates->updatedRows == count($data)) {
-                echo "Rows inserted successfully";
+                echo "Rows inserted successfully\n";
             } else {
-                echo "Some error occurred while inserting...";
+                echo "Some error occurred while inserting...\n";
             }
         } else {
-            echo "Couldn't create Header";
+            echo "Couldn't create Header\n";
         }
     }
 }

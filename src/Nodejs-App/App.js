@@ -46,7 +46,7 @@ mqttClient.on("message", (topic, message) => {
   if (topic === mqttTopic) {
     if(data.length === 8) {
       mysqlConnection.query(
-        `INSERT IGNORE INTO ${mysqlTable} (UID, EntryTime) VALUES (?, ?)`,
+        `INSERT INTO ${mysqlTable} (UID, EntryTime) VALUES (?, ?)`,
         [data, timestamp],
         (err, result) => {
           if (err) {
