@@ -11,7 +11,7 @@ const mysqlConfig = {
   password: "KriShna824@32",
   database: "AMSLogs",
 };
-const mysqlTable = "EntryLogsTest";
+const mysqlTable = "EntryLogs";
 
 const mqttClient = mqtt.connect(mqttBrokerUrl, {
   username : "ams-v2-iot",

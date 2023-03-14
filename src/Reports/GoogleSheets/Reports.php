@@ -64,7 +64,7 @@ class Report
 
     protected function GetData(string $startDate, string $endDate)
     {
-        $Sql = 'SELECT U.Name, U.Domain, E.EntryTime FROM EntryLogs E INNER JOIN Users U ON E.UID=U.UID WHERE EntryTime>=? AND EntryTime<=? ORDER BY EntryTime';
+        $Sql = 'SELECT U.Name, U.Domain, E.EntryTime FROM EntryLogsTest E INNER JOIN Users U ON E.UID=U.UID WHERE EntryTime>=? AND EntryTime<=? ORDER BY EntryTime';
         $result = \DB\DbConn::Get()->PrepareAndExecute($Sql, [$startDate, $endDate]);
         return $result;
     }
